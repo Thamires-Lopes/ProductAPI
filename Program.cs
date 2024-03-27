@@ -1,9 +1,7 @@
-
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using ProductAPI.DatabaseLayer.Repositories;
 using ProductAPI.Entities;
-using System.Text.Json;
+using ProductAPI.ServiceLayer.Services;
 
 namespace ProductAPI
 {
@@ -13,45 +11,17 @@ namespace ProductAPI
         {
             var app = Configure(args);
 
-            var db = new APIContext();
-
-            app.MapPost("/saveCar", ([FromBody] Car car) =>
+            app.MapPost("/saveCar", ([FromServices] GeneralService service, [FromBody] Car car) =>
             {
-                db.Add(car);
-                db.SaveChanges();
-
-                return "Saved";
+                return service.SaveCar(car);
             });
 
-            app.MapPost("/saveBook", ([FromBody] Book book) =>
+            app.MapGet("/cars", ([FromServices] GeneralService service, HttpContext httpContext) =>
             {
-                db.Add(book);
-                db.SaveChanges();
-
-                return "Saved";
-            });
-
-            app.MapGet("/cars", (HttpContext httpContext) =>
-            {
-                var cars = db.Cars.ToList();
+                var cars = service.GetCars();
 
                 return cars;
             });
-
-            app.MapGet("/books", (HttpContext httpContext) =>
-            {
-                var books = db.Books.ToList();
-
-                return books;
-            });
-
-            app.MapGet("/products", (HttpContext httpContext) =>
-            {
-                var products = db.Products.ToList();
-
-                return products;
-            });
-
 
             app.Run();
         }
@@ -60,12 +30,16 @@ namespace ProductAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<APIContext>();
+
             // Add services to the container.
             builder.Services.AddAuthorization();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<CarRepository>();
+            builder.Services.AddTransient<GeneralService>();
 
             var app = builder.Build();
 

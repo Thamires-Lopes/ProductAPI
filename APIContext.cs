@@ -8,7 +8,7 @@ namespace ProductAPI
         public DbSet<Product> Products { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Car> Cars { get; set; }
-        
+
         public string DbPath;
 
         public APIContext()
