@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProductAPI.DatabaseLayer.IRepositories;
 using ProductAPI.DatabaseLayer.Repositories;
 using ProductAPI.Entities;
 using ProductAPI.ServiceLayer.Services;
@@ -38,7 +39,7 @@ namespace ProductAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<CarRepository>();
+            builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddTransient<GeneralService>();
 
             var app = builder.Build();

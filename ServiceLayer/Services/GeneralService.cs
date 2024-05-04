@@ -1,4 +1,4 @@
-﻿using ProductAPI.DatabaseLayer.Repositories;
+﻿using ProductAPI.DatabaseLayer.IRepositories;
 using ProductAPI.Entities;
 using ProductAPI.ServiceLayer.IServices;
 
@@ -6,8 +6,8 @@ namespace ProductAPI.ServiceLayer.Services
 {
     public class GeneralService : IGeneralService
     {
-        private readonly CarRepository _carRepository;
-        public GeneralService(CarRepository carRepository)
+        private readonly ICarRepository _carRepository;
+        public GeneralService(ICarRepository carRepository)
         {
             _carRepository = carRepository;
         }
