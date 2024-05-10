@@ -8,6 +8,7 @@ namespace ProductAPI
         public DbSet<Product> Products { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public string DbPath;
 
@@ -28,6 +29,7 @@ namespace ProductAPI
             modelBuilder.Entity<Product>().UseTptMappingStrategy();
             modelBuilder.Entity<Book>().UseTptMappingStrategy();
             modelBuilder.Entity<Car>().UseTptMappingStrategy();
+            modelBuilder.Entity<User>();
         }
     }
 }
