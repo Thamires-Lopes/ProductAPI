@@ -17,7 +17,7 @@ namespace UnitTest
 
             var exception = Assert.Throws<Exception>(() => BookValidator.ValidateBook(book));
 
-            Assert.Equals("Name author is invalid!", exception.Message);
+            Assert.That(string.Equals("Name author is invalid!", exception.Message));
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace UnitTest
 
             var exception = Assert.Throws<Exception>(() => BookValidator.ValidateBook(book));
 
-            Assert.Equals("Release date is invalid!", exception.Message);
+            Assert.That(string.Equals("Release date is invalid!", exception.Message));
         }
     }
 }
