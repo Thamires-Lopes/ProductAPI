@@ -1,4 +1,4 @@
-﻿namespace ProductAPI.ServiceLayer.IServices
+﻿namespace Services.IServices
 {
     public interface IAuthenticateService
     {

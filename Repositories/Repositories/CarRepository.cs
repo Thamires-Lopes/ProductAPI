@@ -1,7 +1,7 @@
-﻿using ProductAPI.DatabaseLayer.IRepositories;
-using ProductAPI.Entities;
+﻿using Entities.Entities;
+using Repositories.IRepositories;
 
-namespace ProductAPI.DatabaseLayer.Repositories
+namespace Repositories.Repositories
 {
     public class CarRepository : ICarRepository
     {

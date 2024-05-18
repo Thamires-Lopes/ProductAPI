@@ -1,12 +1,15 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using ProductAPI.DatabaseLayer.IRepositories;
-using ProductAPI.ServiceLayer.IServices;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Repositories.IRepositories;
+
+//using ProductAPI.DatabaseLayer.IRepositories;
+using Services.IServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProductAPI.ServiceLayer.Services
+namespace Services.Services
 {
     public class AuthenticateService : IAuthenticateService
     {

@@ -1,6 +1,6 @@
-﻿using ProductAPI.Entities;
+﻿using Entities.Entities;
 
-namespace ProductAPI.ServiceLayer.IServices
+namespace Services.IServices
 {
     public interface IUserService
     {

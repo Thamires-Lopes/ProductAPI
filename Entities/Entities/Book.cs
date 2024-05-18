@@ -1,4 +1,4 @@
-﻿namespace ProductAPI.Entities
+﻿namespace Entities.Entities
 {
     public class Book : Product
     {
