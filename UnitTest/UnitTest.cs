@@ -1,3 +1,6 @@
+using Entities.DTOs;
+using Validators.Validators;
+
 namespace UnitTest
 {
     public class Tests
@@ -8,9 +11,23 @@ namespace UnitTest
         }
 
         [Test]
-        public void Test1()
+        public void ValidateBookAuthorName_Invalid()
         {
-            Assert.Pass();
+            var book = new BookDTO();
+
+            var exception = Assert.Throws<Exception>(() => BookValidator.ValidateBook(book));
+
+            Assert.Equals("Name author is invalid!", exception.Message);
+        }
+
+        [Test]
+        public void ValidateBookReleaseDate_Invalid()
+        {
+            var book = new BookDTO();
+
+            var exception = Assert.Throws<Exception>(() => BookValidator.ValidateBook(book));
+
+            Assert.Equals("Release date is invalid!", exception.Message);
         }
     }
 }
