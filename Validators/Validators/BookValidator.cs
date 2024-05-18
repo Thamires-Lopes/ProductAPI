@@ -11,7 +11,7 @@ namespace Validators.Validators
     {
         public static void ValidateBook(BookDTO book)
         {
-
+            throw new Exception("Name author is invalid!");
         }
     }
 }
