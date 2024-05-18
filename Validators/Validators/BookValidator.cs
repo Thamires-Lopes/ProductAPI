@@ -1,9 +1,5 @@
 ﻿using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Validators.CustomExceptions;
 
 namespace Validators.Validators
 {
@@ -13,11 +9,11 @@ namespace Validators.Validators
         {
             if (string.IsNullOrEmpty(book.Author))
             {
-                throw new Exception("Name author is invalid!");
+                throw new BookFieldException("Name author is invalid!");
             }
             else if (!book.ReleaseDate.HasValue)
             {
-                throw new Exception("Release date is invalid!");
+                throw new BookFieldException("Release date is invalid!");
             }
         }
     }

@@ -1,4 +1,5 @@
 using Entities.DTOs;
+using Validators.CustomExceptions;
 using Validators.Validators;
 
 namespace UnitTest
@@ -15,7 +16,7 @@ namespace UnitTest
         {
             var book = new BookDTO { ReleaseDate = DateTime.Now.Date };
 
-            var exception = Assert.Throws<Exception>(() => BookValidator.ValidateBook(book));
+            var exception = Assert.Throws<BookFieldException>(() => BookValidator.ValidateBook(book));
 
             Assert.That(string.Equals("Name author is invalid!", exception.Message));
         }
@@ -25,7 +26,7 @@ namespace UnitTest
         {
             var book = new BookDTO { Author = "Author" };
 
-            var exception = Assert.Throws<Exception>(() => BookValidator.ValidateBook(book));
+            var exception = Assert.Throws<BookFieldException>(() => BookValidator.ValidateBook(book));
 
             Assert.That(string.Equals("Release date is invalid!", exception.Message));
         }
