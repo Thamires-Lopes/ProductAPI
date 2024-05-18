@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProductAPI.Entities;
+﻿using Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace ProductAPI
+namespace Repositories
 {
     public class APIContext : DbContext
     {

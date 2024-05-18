@@ -1,13 +1,11 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ProductAPI.DatabaseLayer.IRepositories;
-using ProductAPI.DatabaseLayer.Repositories;
-using ProductAPI.Entities;
-using ProductAPI.ServiceLayer.IServices;
-using ProductAPI.ServiceLayer.Services;
-using System.Text;
+using Repositories;
+using Repositories.IRepositories;
+using Repositories.Repositories;
+using Services.IServices;
+using Services.Services;
 
 namespace ProductAPI
 {

@@ -1,8 +1,8 @@
-﻿using ProductAPI.DatabaseLayer.IRepositories;
-using ProductAPI.Entities;
-using ProductAPI.ServiceLayer.IServices;
+﻿using Entities.Entities;
+using Services.IServices;
+using Repositories.IRepositories;
 
-namespace ProductAPI.ServiceLayer.Services
+namespace Services.Services
 {
     public class GeneralService : IGeneralService
     {
