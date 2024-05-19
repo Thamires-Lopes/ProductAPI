@@ -7,13 +7,20 @@ namespace Validators.Validators
     {
         public static void ValidateBook(BookDTO book)
         {
+            var exceptions = new List<BookFieldException>();
+
             if (string.IsNullOrEmpty(book.Author))
             {
-                throw new BookFieldException("Name author is invalid!");
+                exceptions.Add(new BookFieldException("Name author is invalid!"));
             }
-            else if (!book.ReleaseDate.HasValue)
+            if (!book.ReleaseDate.HasValue)
             {
-                throw new BookFieldException("Release date is invalid!");
+                exceptions.Add(new BookFieldException("Release date is invalid!"));
+            }
+
+            if (exceptions.Count > 0) 
+            { 
+                throw new BookFieldsException(exceptions); 
             }
         }
     }

@@ -14,21 +14,21 @@ namespace UnitTest
         [Test]
         public void ValidateBookAuthorName_Invalid()
         {
-            var book = new BookDTO { ReleaseDate = DateTime.Now.Date };
+            var book = new BookDTO();
 
-            var exception = Assert.Throws<BookFieldException>(() => BookValidator.ValidateBook(book));
+            var exception = Assert.Throws<BookFieldsException>(() => BookValidator.ValidateBook(book));
 
-            Assert.That(string.Equals("Name author is invalid!", exception.Message));
+            Assert.That(exception.Messages.Contains("Name author is invalid!"));
         }
 
         [Test]
         public void ValidateBookReleaseDate_Invalid()
         {
-            var book = new BookDTO { Author = "Author" };
+            var book = new BookDTO();
 
-            var exception = Assert.Throws<BookFieldException>(() => BookValidator.ValidateBook(book));
+            var exception = Assert.Throws<BookFieldsException>(() => BookValidator.ValidateBook(book));
 
-            Assert.That(string.Equals("Release date is invalid!", exception.Message));
+            Assert.That(exception.Messages.Contains("Release date is invalid!"));
         }
 
         [Test]
