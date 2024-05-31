@@ -12,6 +12,8 @@ namespace Repositories
 
         public string DbPath;
 
+        public APIContext(DbContextOptions<APIContext> options) : base(options) { }
+
         public APIContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -21,7 +23,10 @@ namespace Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
