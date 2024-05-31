@@ -14,6 +14,12 @@ namespace IntegrationTest
             api = new ProductApiWebApplicationFactory();
         }
 
+        [OneTimeTearDown]
+        public void Dispose()
+        {
+            api.Dispose();
+        }
+
         [Test, Order(1)]
         public async Task SaveBook()
         {
@@ -24,8 +30,8 @@ namespace IntegrationTest
             var response = await client.PostAsJsonAsync("/saveBook", book);
             var bookSavedReponse = await response.Content.ReadAsStringAsync();
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual("Saved Book", bookSavedReponse);
+            Assert.That(response.IsSuccessStatusCode);
+            Assert.That(string.Equals("Saved Book", bookSavedReponse));
         }
 
         [Test, Order(2)]
@@ -37,8 +43,8 @@ namespace IntegrationTest
 
             var booksReponse = await response.Content.ReadFromJsonAsync<List<Book>>();
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsTrue(booksReponse.Count == 1);
+            Assert.That(response.IsSuccessStatusCode);
+            Assert.That(booksReponse.Count == 1);
         }
     }
 }
