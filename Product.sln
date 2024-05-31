@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositorie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA3F51A5-DB28-4995-AA5F-827465865350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators", "Validators\Validators.csproj", "{A4C09C3A-951F-4713-97C5-37EE8C5F422D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators", "Validators\Validators.csproj", "{A4C09C3A-951F-4713-97C5-37EE8C5F422D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{FD1C180A-1BC8-4F20-97E7-D29D37A9761A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{A4C09C3A-951F-4713-97C5-37EE8C5F422D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4C09C3A-951F-4713-97C5-37EE8C5F422D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4C09C3A-951F-4713-97C5-37EE8C5F422D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1C180A-1BC8-4F20-97E7-D29D37A9761A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1C180A-1BC8-4F20-97E7-D29D37A9761A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1C180A-1BC8-4F20-97E7-D29D37A9761A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1C180A-1BC8-4F20-97E7-D29D37A9761A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

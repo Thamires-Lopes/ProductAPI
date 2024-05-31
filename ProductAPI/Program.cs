@@ -1,3 +1,4 @@
+using Entities.DTOs;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
@@ -37,6 +38,18 @@ namespace ProductAPI
                 return service.Login(email, password);
             });
 
+            app.MapPost("/saveBook", ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
+            {
+                return service.SaveBook(bookDto);
+            });
+
+            app.MapGet("/books", ([FromServices] IGeneralService service, HttpContext httpContext) =>
+            {
+                var books = service.GetBooks();
+
+                return books;
+            });
+
             app.Run();
         }
 
@@ -56,6 +69,7 @@ namespace ProductAPI
             ConfigSwagger(builder);
             
             builder.Services.AddScoped<ICarRepository, CarRepository>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IGeneralService, GeneralService>();
             builder.Services.AddTransient<IUserService, UserService>();
