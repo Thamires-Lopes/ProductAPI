@@ -10,22 +10,13 @@ namespace Repositories
         public DbSet<Car> Cars { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public string DbPath;
-
         public APIContext(DbContextOptions<APIContext> options) : base(options) { }
-
-        public APIContext()
-        {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "api.db");
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite($"Data Source={DbPath}");
+                optionsBuilder.UseSqlServer($"Server=localhost;Database=product;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
 
