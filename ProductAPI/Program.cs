@@ -75,6 +75,7 @@ namespace ProductAPI
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IAuthenticateService, AuthenticateService>();
             
+            builder.Services.AddSingleton<IMiddleware, ApiMiddleware>();
 
             var app = builder.Build();
 
@@ -84,6 +85,8 @@ namespace ProductAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<IMiddleware>();
 
             app.UseHttpsRedirection();
 
