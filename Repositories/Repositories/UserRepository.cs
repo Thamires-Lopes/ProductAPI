@@ -22,7 +22,6 @@ namespace Repositories.Repositories
         public void RegisterUser(User user)
         {
             _apiContext.Add(user);
-            _apiContext.SaveChanges();
         }
     }
 }

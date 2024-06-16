@@ -19,7 +19,7 @@ namespace ProductAPI
         {
             var app = Configure(args);
 
-            app.MapPost("/saveCar", ([FromServices] IGeneralService service, [FromBody] Car car) =>
+            app.MapPost("/saveCar", [TransactionRequired] ([FromServices] IGeneralService service, [FromBody] Car car) =>
             {
                 return service.SaveCar(car);
             }).RequireAuthorization();
@@ -31,7 +31,7 @@ namespace ProductAPI
                 return cars;
             }).RequireAuthorization();
 
-            app.MapPost("/registerUser", ([FromServices] IUserService service, [FromBody] User user) =>
+            app.MapPost("/registerUser", [TransactionRequired] ([FromServices] IUserService service, [FromBody] User user) =>
             {
                 return service.RegisterUser(user);
             });
