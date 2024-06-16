@@ -1,26 +1,48 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Http.Features;
+using Repositories.IManager;
+using System.Net;
 using System.Text.Json;
-using Utils;
+using Utils.CustomAttributes;
+using Utils.Exceptions;
 
 namespace ProductAPI
 {
     public class ApiMiddleware : IMiddleware
     {
         private readonly ILogger<ApiMiddleware> _logger;
+        private readonly ITransactionManager _transactionManager;
 
-        public ApiMiddleware(ILogger<ApiMiddleware> logger)
+        public ApiMiddleware(ILogger<ApiMiddleware> logger, ITransactionManager transactionManager)
         {
             _logger = logger;
+            _transactionManager = transactionManager;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
+            var requiredTransaction = context.Features.Get<IEndpointFeature>()?.Endpoint?.Metadata.GetMetadata<TransactionRequired>();
+
             try
             {
-                await next.Invoke(context);
+                if (requiredTransaction != null)
+                {
+                    await _transactionManager.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted);
+
+                    await next.Invoke(context);
+
+                    await _transactionManager.CommitTransactionAsync();
+                }
+                else
+                {
+                    await next.Invoke(context);
+                }
+
             }
             catch (Exception exception)
             {
+                if (requiredTransaction != null)
+                    await _transactionManager.RollbackTransactionAsync();
+
                 _logger.LogError(exception, exception.Message);
 
                 await HandleException(context, exception);

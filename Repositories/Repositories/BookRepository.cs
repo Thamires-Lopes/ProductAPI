@@ -15,7 +15,6 @@ namespace Repositories.Repositories
         public void SaveBook(Book book)
         {
             _apiContext.Add(book);
-            _apiContext.SaveChanges();
         }
 
         public List<Book> GetBooks()

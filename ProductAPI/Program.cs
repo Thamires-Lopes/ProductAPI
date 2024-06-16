@@ -3,10 +3,13 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Repositories;
+using Repositories.IManager;
 using Repositories.IRepositories;
+using Repositories.Manager;
 using Repositories.Repositories;
 using Services.IServices;
 using Services.Services;
+using Utils.CustomAttributes;
 
 namespace ProductAPI
 {
@@ -38,7 +41,7 @@ namespace ProductAPI
                 return service.Login(email, password);
             });
 
-            app.MapPost("/saveBook", ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
+            app.MapPost("/saveBook", [TransactionRequired] ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
             {
                 return service.SaveBook(bookDto);
             });
@@ -71,11 +74,12 @@ namespace ProductAPI
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ITransactionManager, TransactionManager>();
             builder.Services.AddTransient<IGeneralService, GeneralService>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IAuthenticateService, AuthenticateService>();
             
-            builder.Services.AddSingleton<IMiddleware, ApiMiddleware>();
+            builder.Services.AddScoped<IMiddleware, ApiMiddleware>();
 
             var app = builder.Build();
 
