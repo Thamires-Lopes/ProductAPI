@@ -12,7 +12,7 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(APIContext))]
-    [Migration("20240613233142_InitialMigration")]
+    [Migration("20240617004725_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -39,6 +39,12 @@ namespace Repositories.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
@@ -67,6 +73,12 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -83,6 +95,12 @@ namespace Repositories.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("VersionBook")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.ToTable("Books");
                 });
 
@@ -93,6 +111,12 @@ namespace Repositories.Migrations
                     b.Property<string>("Manufacturer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("VersionCar")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");

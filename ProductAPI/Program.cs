@@ -53,6 +53,11 @@ namespace ProductAPI
                 return books;
             });
 
+            app.MapPost("/updateBook", [TransactionRequired] ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
+            {
+                return service.UpdateBook(bookDto);
+            });
+
             app.Run();
         }
 

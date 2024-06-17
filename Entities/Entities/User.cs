@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
@@ -8,6 +9,9 @@ namespace Entities.Entities
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+
+        [Timestamp]
+        public byte[] Version { get; set; }
 
         [NotMapped]
         public string Password { get; set; }

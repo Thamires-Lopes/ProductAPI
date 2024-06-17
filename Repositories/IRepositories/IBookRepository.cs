@@ -6,5 +6,6 @@ namespace Repositories.IRepositories
     {
         void SaveBook(Book book);
         List<Book> GetBooks();
+        Book GetBookById(int idBook);
     }
 }

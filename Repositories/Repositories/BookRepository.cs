@@ -23,5 +23,12 @@ namespace Repositories.Repositories
 
             return books;
         }
+
+        public Book GetBookById(int idBook)
+        {
+            var book = _apiContext.Books.First(e => e.Id == idBook);
+
+            return book;
+        }
     }
 }
