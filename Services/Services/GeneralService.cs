@@ -51,5 +51,17 @@ namespace Services.Services
         {
             return _bookRepository.GetBooks();
         }
+
+        public string UpdateBook(BookDTO bookDto)
+        {
+            var book = _bookRepository.GetBookById(bookDto.Id.Value);
+
+            book.Author = bookDto.Author;
+            book.Name = bookDto.Name;
+            book.Price = bookDto.Price;
+            book.ReleaseDate = bookDto.ReleaseDate.Value;
+
+            return "Book updated";
+        }
     }
 }

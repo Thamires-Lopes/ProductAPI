@@ -3,10 +3,13 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Repositories;
+using Repositories.IManager;
 using Repositories.IRepositories;
+using Repositories.Manager;
 using Repositories.Repositories;
 using Services.IServices;
 using Services.Services;
+using Utils.CustomAttributes;
 
 namespace ProductAPI
 {
@@ -16,7 +19,7 @@ namespace ProductAPI
         {
             var app = Configure(args);
 
-            app.MapPost("/saveCar", ([FromServices] IGeneralService service, [FromBody] Car car) =>
+            app.MapPost("/saveCar", [TransactionRequired] ([FromServices] IGeneralService service, [FromBody] Car car) =>
             {
                 return service.SaveCar(car);
             }).RequireAuthorization();
@@ -28,7 +31,7 @@ namespace ProductAPI
                 return cars;
             }).RequireAuthorization();
 
-            app.MapPost("/registerUser", ([FromServices] IUserService service, [FromBody] User user) =>
+            app.MapPost("/registerUser", [TransactionRequired] ([FromServices] IUserService service, [FromBody] User user) =>
             {
                 return service.RegisterUser(user);
             });
@@ -38,7 +41,7 @@ namespace ProductAPI
                 return service.Login(email, password);
             });
 
-            app.MapPost("/saveBook", ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
+            app.MapPost("/saveBook", [TransactionRequired] ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
             {
                 return service.SaveBook(bookDto);
             });
@@ -48,6 +51,11 @@ namespace ProductAPI
                 var books = service.GetBooks();
 
                 return books;
+            });
+
+            app.MapPost("/updateBook", [TransactionRequired] ([FromServices] IGeneralService service, [FromBody] BookDTO bookDto) =>
+            {
+                return service.UpdateBook(bookDto);
             });
 
             app.Run();
@@ -71,10 +79,12 @@ namespace ProductAPI
             builder.Services.AddScoped<ICarRepository, CarRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ITransactionManager, TransactionManager>();
             builder.Services.AddTransient<IGeneralService, GeneralService>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IAuthenticateService, AuthenticateService>();
             
+            builder.Services.AddScoped<IMiddleware, ApiMiddleware>();
 
             var app = builder.Build();
 
@@ -84,6 +94,8 @@ namespace ProductAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<IMiddleware>();
 
             app.UseHttpsRedirection();
 

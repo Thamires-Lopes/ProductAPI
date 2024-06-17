@@ -15,7 +15,6 @@ namespace Repositories.Repositories
         public void SaveCar(Car car)
         {
             _apiContext.Add(car);
-            _apiContext.SaveChanges();
         }
 
         public List<Car> GetCars()

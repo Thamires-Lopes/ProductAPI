@@ -15,7 +15,6 @@ namespace Repositories.Repositories
         public void SaveBook(Book book)
         {
             _apiContext.Add(book);
-            _apiContext.SaveChanges();
         }
 
         public List<Book> GetBooks()
@@ -23,6 +22,13 @@ namespace Repositories.Repositories
             var books = _apiContext.Books.ToList();
 
             return books;
+        }
+
+        public Book GetBookById(int idBook)
+        {
+            var book = _apiContext.Books.First(e => e.Id == idBook);
+
+            return book;
         }
     }
 }

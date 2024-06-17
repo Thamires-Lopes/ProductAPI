@@ -9,5 +9,6 @@ namespace Services.IServices
         List<Car> GetCars();
         string SaveBook(BookDTO book);
         List<Book> GetBooks();
+        string UpdateBook(BookDTO bookDto);
     }
 }
